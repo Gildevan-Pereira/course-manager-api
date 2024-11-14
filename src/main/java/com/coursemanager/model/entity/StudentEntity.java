@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,11 +13,15 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "student")
 public class StudentEntity extends BaseEntity{
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -29,7 +32,7 @@ public class StudentEntity extends BaseEntity{
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EnrollmentEntity> enrollment;
+    @OneToMany(mappedBy = "students", cascade = CascadeType.ALL)
+    private List<CourseEntity> courses;
 
 }

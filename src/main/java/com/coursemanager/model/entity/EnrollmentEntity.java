@@ -16,22 +16,18 @@ import java.time.LocalDateTime;
 @Table(name = "enrollment")
 public class EnrollmentEntity extends BaseEntity {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @EmbeddedId
+    private CourseEnrollmentKey id;
 
-    @Column(name = "student_id")
     @ManyToOne
     @MapsId("studentId")
     @JoinColumn(name = "student_id")
-    private Integer studentId;
+    private StudentEntity students;
 
-    @Column(name = "course_id")
     @ManyToOne
     @MapsId("courseId")
     @JoinColumn(name = "course_id")
-    private Integer courseId;
+    private CourseEntity courses;
 
     @Column(name = "registration_date")
     private LocalDateTime registrationDate;

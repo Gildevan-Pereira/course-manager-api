@@ -33,6 +33,6 @@ public class CourseEntity extends BaseEntity{
     private LocalDateTime creationDate;
 
     @OneToMany(mappedBy = "courses", cascade = CascadeType.ALL)
-    private List<StudentEntity> students;
+    private List<EnrollmentEntity> students;
 
 }

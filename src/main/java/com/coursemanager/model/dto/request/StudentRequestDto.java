@@ -2,7 +2,6 @@ package com.coursemanager.model.dto.request;
 
 
 import com.coursemanager.model.entity.CourseEntity;
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentRequestDto {

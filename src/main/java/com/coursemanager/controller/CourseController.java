@@ -2,6 +2,7 @@ package com.coursemanager.controller;
 
 import com.coursemanager.model.dto.request.CourseRequestDto;
 import com.coursemanager.model.dto.response.CourseResponseDto;
+import com.coursemanager.model.dto.response.StudentResponseDto;
 import com.coursemanager.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +24,9 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.CREATED).body(course);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<CourseResponseDto>> findCourseById(@PathVariable Integer id) {
-        var course = courseService.findAllCoursesByStudentId(id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(course);
+    @GetMapping("/{courseId}/students")
+    public  ResponseEntity<List<StudentResponseDto>> getStudentsByCourseId(@PathVariable Integer courseId) {
+        var students = courseService.findStudentsByCourseId(courseId);
+        return ResponseEntity.status(HttpStatus.OK).body(students);
     }
 }

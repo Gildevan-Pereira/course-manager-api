@@ -1,6 +1,8 @@
 package com.coursemanager.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,8 +17,8 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "student")
-public class StudentEntity extends BaseEntity{
+@Table(name = "students")
+public class StudentEntity {
 
     @Id
     @Column(name = "id")
@@ -32,7 +34,14 @@ public class StudentEntity extends BaseEntity{
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
-    @OneToMany(mappedBy = "students", cascade = CascadeType.ALL)
-    private List<EnrollmentEntity> courses;
+    @ManyToMany
+    @JsonBackReference
+    @JsonManagedReference
+    @JoinTable(
+            name = "enrollments",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private List<CourseEntity> courses;
+
 
 }

@@ -1,35 +1,30 @@
 package com.coursemanager.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "enrollment")
-public class EnrollmentEntity extends BaseEntity {
+@Table(name = "enrollments")
+public class EnrollmentEntity {
 
-    @EmbeddedId
-    private CourseEnrollmentKey id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @ManyToOne
-    @MapsId("studentId")
-    @JoinColumn(name = "student_id")
-    private StudentEntity students;
+    @Column(name = "student_id")
+    private Integer studentId;
 
-    @ManyToOne
-    @MapsId("courseId")
-    @JoinColumn(name = "course_id")
-    private CourseEntity courses;
+    @Column(name = "course_id")
+    private Integer courseId;
 
-    @Column(name = "registration_date")
+    @Column(name = "registration_date", nullable = false)
     private LocalDateTime registrationDate;
 
 }

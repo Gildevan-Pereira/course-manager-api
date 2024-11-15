@@ -14,17 +14,6 @@ import java.time.LocalDateTime;
 public class EnrollmentResponseDto {
 
     private Integer id;
-
-    private Integer studentId;
-
-    private Integer courseId;
-
     private LocalDateTime registrationDate;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
-    private LocalDateTime removedAt;
 
 }

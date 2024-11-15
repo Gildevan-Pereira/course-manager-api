@@ -1,14 +1,12 @@
 package com.coursemanager.model.dto.request;
 
 
-import com.coursemanager.model.entity.CourseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -21,7 +19,5 @@ public class StudentRequestDto {
     private String description;
 
     private LocalDateTime creationDate;
-
-    private List<CourseEntity> courses;
 
 }

@@ -40,6 +40,10 @@ public class EnrollmentPopulator {
     }
 
     public EnrollmentEntity enrollmentEntityFromRequest(EnrollmentRequestDto enrollmentRequestDto) {
-        return modelMapper.map(enrollmentRequestDto, EnrollmentEntity.class);
+        return EnrollmentEntity.builder()
+                .studentId(enrollmentRequestDto.getStudentId())
+                .courseId(enrollmentRequestDto.getCourseId())
+                .registrationDate(enrollmentRequestDto.getRegistrationDate())
+                .build();
     }
 }

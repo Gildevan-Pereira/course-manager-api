@@ -1,20 +1,25 @@
 package com.coursemanager.service;
 
-import com.coursemanager.fixtures.CourseEntityFixture;
-import com.coursemanager.fixtures.CourseRequestDtoFixture;
-import com.coursemanager.fixtures.CourseResponseDtoFixture;
+import com.coursemanager.exception.BusinessException;
+import com.coursemanager.fixtures.*;
 import com.coursemanager.model.dto.EnrollmentPopulator;
 import com.coursemanager.model.entity.CourseEntity;
 import com.coursemanager.repository.CourseRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -59,6 +64,30 @@ class CourseServiceTest {
     }
 
     @Test
-    void findStudentsByCourseId() {
+    void shouldFindStudentsByCourseIdWithSuccessful() {
+        var courseId = 1;
+        var entity = StudentEntityFixture.buildDefault();
+        var responseDto = StudentResponseDtoFixture.buildDefault();
+
+        when(courseRepository.findStudentsByCourseId(courseId)).thenReturn(List.of(entity));
+        when(enrollmentPopulator.studentResponseFromEntity(entity)).thenReturn(responseDto);
+
+        var response = courseService.findStudentsByCourseId(courseId);
+
+        verify(courseRepository).findStudentsByCourseId(courseId);
+
+        assertThat(response).isNotNull().isNotEmpty();
+        assertThat(response.get(0).getId()).isEqualTo(courseId);
+    }
+
+    @Test
+    void shouldBusinessExceptionWhenFindStudentsByCourseIdNotExists() {
+        var courseId = 2;
+
+        when(courseRepository.findStudentsByCourseId(anyInt())).thenReturn(Collections.emptyList());
+
+        Executable executable = () -> courseService.findStudentsByCourseId(courseId);
+
+        assertThrows(BusinessException.class, executable);
     }
 }
